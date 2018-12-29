@@ -57,12 +57,12 @@ All datasets prepared and you are now ready for training. I recommend you create
 ### 1. Model selection
 First you should choose a pre-trained model for fine tuning. You can switch to [TF Detection Model Zoo]() to download the model. The 'speed' refers to time consuming and the 'COCO mAP' refers to precision. Larger the 'speed' the more time you would spend to train your model. Larger the 'COCO mAP' a more accurate result you would get from your model.
 
-After downloading and extracting your `.zip` model, find the `model.ckpt` files (there should be three of them) and copy them to your new folder. These are the check point of the model you have downloaded and now you are ready to fine tuning base on that.
+After downloading and extracting your `.zip` model, find the `model.ckpt` files (there should be three of them) and copy them to your new folder. These are the check point of the model you have downloaded and now you are ready to fine tuning based on that.
 
 ### 2. Configuration
 Copy the [.config file](https://github.com/tensorflow/models/tree/master/research/object_detection/samples/configs) to your new folder. TensorFlow model configs might differ from one another but the following steps below are the same for every model.
 
-* Change `num_classes: 90` to the number of classes in your lab map.
+* Change `num_classes: 90` to the number of classes in your label map.
 
 * Change the "PATH_TO_BE_CONFIGURED" placeholder to the corresponding path. Please note that the path here refers to the relative path. If you follow the steps above, it should be the path in your new folder.
 
@@ -77,7 +77,7 @@ Now you are ready to train your model. Again please make sure you have set up th
 
 * Navigate to `models/research/object_detection` folder and copy the `train.py` to your new folder.
 
-* Train your model by executing the following statement in the root of your new folder
+* Navigate to your new folder and train your model by executing the following statement in the root of your new folder
 ```
 python train.py --logtostderr --train_dir=./path/to/your_training_result --pipeline_config_path=./path/to/your_tensorflow_model.config
 ```
@@ -87,7 +87,7 @@ tensorboard --logdir=./path/to/your_training_result
 ```
 
 ### 4. Freezeing the graphs
-When training is finished the trained model needs to be exported as a frozen inference graph. If you train your model with a higer version of tensorflow 1.4, you should downgrade your version back to 1.4 before running the scripts in this step.
+When training is finished the trained model needs to be exported as a frozen inference graph. If you train your model with the version of tensorflow higher than 1.4, you should downgrade your version back to 1.4 before running the scripts in this step.
 * Copy `export_inference_graph.py` from the `models/research/object_detection` folder to the root of your new folder
 
 * Excute the following statement
