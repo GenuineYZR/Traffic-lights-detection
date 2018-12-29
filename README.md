@@ -96,7 +96,7 @@ python export_inference_graph.py --input_type image_tensor --pipeline_config_pat
 ```
 
 ## Model testing
-So far you have created and trained your model leaning to transfer learning. And you have frozen your model for project use. I strongly recommend you test your model before importing to Capstone.
+So far you have created and trained your model leaning on transfer learning. And you have frozen your model for project use. I strongly recommend you test your model before importing to Capstone.
 * Navigate to `models/research/object_detection` and open Jupyter Notebook.
 
 * Open the `object_detection_tutorial.ipynb` file.
