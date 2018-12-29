@@ -1,5 +1,5 @@
 # Traffic-lights-detection
-This tutorial is mainly aimed for the [Capstone project](). As Aron has made a great official walkthrough in the classroom, I would not include all parts of the project and just focus on the traffic lights detector which was omitted in the walkthrough. I hope this tutorial could save you a lot more time to learn some other interesting stuff. You may also find many other ways to build a classifier with less time consuming and higher mPA, please feel free to share your work.
+This tutorial is mainly aimed for the [Capstone project](). As Aron has made a great official walkthrough in the classroom, I would not include all parts of the project and just focus on the traffic lights detector which was omitted in the walkthrough. I hope this tutorial could save you a lot more time to learn some other interesting stuff. Many thanks to [Alexander Lechner](https://github.com/alex-lechner/Traffic-Light-Classification), [Daniel Stang](https://medium.com/@WuStangDan/step-by-step-tensorflow-object-detection-api-tutorial-part-4-training-the-model-68a9e5d5a333) and [Anthony Sarkis](https://medium.com/@anthony_sarkis/self-driving-cars-implementing-real-time-traffic-light-detection-and-classification-in-2017-7d9ae8df1c58), I have read through their posts and they did help my own project a lot. You may also find many other nice ways to build a classifier with less time consuming and higher mPA, please feel free to share your idea here.
 
 ## Dependencies & Environment
 
@@ -39,16 +39,16 @@ If you woud like to create both datasets by your own hand, then this is the way 
 
 #### 3. Spilt data
 
- Now you are ready to split your data into training set and evaluating set. For XML file you could transfer the XML into CSV, then split the CSV file. You could directly use the tools I provided [here]() or you could split your data in any other ways if you like.
+ Now you are ready to split your data into training set and evaluating set. For XML file you could [transfer the XML into CSV](https://github.com/GenuineYZR/Traffic-lights-detection/blob/master/utils/xml_to_csv.py), then split the CSV file. You could directly use the tools I provided [here](https://github.com/GenuineYZR/Traffic-lights-detection/blob/master/utils/csv_dataset_split.py) or you could split your data in any other ways if you like.
 
 #### 4. Transform data
 After you have split your labeled images, you are ready to create a TFRecord file for your training and evaluating set respectively in order to retrain a TensorFlow model. A TFRecord is a binary file format which stores your images and ground truth annotations.
 
- * If you have used the [tools]() I mentioned above in step 3, then use this [file]() to generate the tfrecord data.
+ * If you have used the tools I mentioned above in step 3, then use this [file](https://github.com/GenuineYZR/Traffic-lights-detection/blob/master/utils/generate_tfrecord.py) to generate the tfrecord data.
 
- * If you split your data in other ways, follow this step. The TFOB API has provided you with the [`create_tf_record.py`]() to transfer your data to tfrecord. If you take a look at the file, you should find that you still need a label map file. Feel free to use my [`label_map.pbtxt`]()or you may prefer to create your own.
+ * If you split your data in other ways, follow this step. The TFOB API has provided the [`create_tf_record.py`](https://github.com/GenuineYZR/Traffic-lights-detection/blob/master/create_pascal_tf_record.py) to transfer your data to tfrecord. If you take a look at the file, you should find that you still need a label map file. Feel free to use my [`label_map.pbtxt`](https://github.com/GenuineYZR/Traffic-lights-detection/blob/master/data/label_map.pbtxt)or you may prefer to create your own.
 
- * NOTE: After you have created your tfrecord file, you should not change the directory to your images.
+ * NOTE: After you have created your tfrecord file, you should not change the path to your images any more.
 
 ## Training
 
@@ -81,6 +81,10 @@ Now you are ready to train your model. Again please make sure you have set up th
 ```
 python train.py --logtostderr --train_dir=./path/to/your_training_result --pipeline_config_path=./path/to/your_tensorflow_model.config
 ```
+* You could excute the following statement for visualization. Also it's a very good way for fine tuning.
+```
+tensorboard --logdir=./path/to/your_training_result
+```
 
 ### 4. Freezeing the graphs
 When training is finished the trained model needs to be exported as a frozen inference graph. If you train your model with a higer version of tensorflow 1.4, you should downgrade your version back to 1.4 before running the scripts in this step.
@@ -90,3 +94,11 @@ When training is finished the trained model needs to be exported as a frozen inf
 ```
 python export_inference_graph.py --input_type image_tensor --pipeline_config_path=./path/to/your_tensorflow_model.config --trained_checkpoint_prefix=./path/to/your_training_result/model.ckpt-20000 --output_directory=./path/to/output_directory
 ```
+
+## Model testing
+So far you have created and trained your model leaning to transfer learning. And you have frozen your model for project use. I strongly recommend you test your model before importing to Capstone.
+* Navigate to `models/research/object_detection` and open Jupyter Notebook.
+
+* Open the `object_detection_tutorial.ipynb` file.
+
+* Take a close look at the code and change where necessary to import and test your own model.
