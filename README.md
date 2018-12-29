@@ -39,7 +39,7 @@ If you woud like to create both datasets by your own hand, then this is the way 
 
 #### 3. Spilt data
 
- Now you are ready to split your data into training set and evaluating set. For XML file you could [transfer the XML into CSV](https://github.com/GenuineYZR/Traffic-lights-detection/blob/master/utils/xml_to_csv.py), then split the CSV file. You could directly use the tools I provided [here](https://github.com/GenuineYZR/Traffic-lights-detection/blob/master/utils/csv_dataset_split.py) or you could split your data in any other ways if you like.
+ Now you are ready to split your data into training set and evaluating set. For XML file you could [transfer the XML into CSV](https://github.com/GenuineYZR/Traffic-lights-detection/blob/master/utils/xml_to_csv.py), then split the CSV file. You could directly use the tools I provided [here](https://github.com/GenuineYZR/Traffic-lights-detection/blob/master/utils/csv_dataset_split.py) or you could split your data in other preferable ways.
 
 #### 4. Transform data
 After you have split your labeled images, you are ready to create a TFRecord file for your training and evaluating set respectively in order to retrain a TensorFlow model. A TFRecord is a binary file format which stores your images and ground truth annotations.
@@ -86,7 +86,7 @@ python train.py --logtostderr --train_dir=./path/to/your_training_result --pipel
 tensorboard --logdir=./path/to/your_training_result
 ```
 
-### 4. Freezeing the graphs
+### 4. Freezing the graphs
 When training is finished the trained model needs to be exported as a frozen inference graph. If you train your model with the version of tensorflow higher than 1.4, you should downgrade your version back to 1.4 before running the scripts in this step.
 * Copy `export_inference_graph.py` from the `models/research/object_detection` folder to the root of your new folder
 
