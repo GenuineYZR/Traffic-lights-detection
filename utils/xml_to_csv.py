@@ -1,8 +1,22 @@
+"""
+Convert xml to csv.
+
+Example usage:
+  python xml_to_csv.py --xml_input=data/input --output_filename=MY_DATA --output_path=data/output
+
+"""
+
 import os
 import glob
 import pandas as pd
 import xml.etree.ElementTree as ET
+import tensorflow as tf
 
+flags = tf.app.flags
+flags.DEFINE_string('xml_input', None, 'Path to the XML input')
+flags.DEFINE_string('output_filename', None, 'Filename of CSV')
+flags.DEFINE_string('output_path', os.getcwd(), 'Path to output CSV')
+FLAGS = flags.FLAGS
 
 def xml_to_csv(path):
     xml_list = []
@@ -25,11 +39,13 @@ def xml_to_csv(path):
     return xml_df
 
 
-def main():
-    image_path = os.path.join(os.getcwd(), 'annotation_simulator')
+def main(_):
+    image_path = FLAGS.xml_input
     xml_df = xml_to_csv(image_path)
-    xml_df.to_csv('simulator.csv', index=None)
+
+    output_path = os.path.join(FLAGS.output_path, FLAGS.output_filename + '.csv')
+    xml_df.to_csv(output_path, index=None)
     print('Successfully converted xml to csv.')
 
-
-main()
+if __name__ == '__main__':
+    tf.app.run()
